@@ -87,8 +87,8 @@
             "name": "Loop Over Items1",
             "type": "n8n-nodes-base.splitInBatches",
             "position": [
-                304,
-                928
+                464,
+                912
             ],
             "typeVersion": 3
         },
@@ -101,8 +101,8 @@
             "name": "Aggregate",
             "type": "n8n-nodes-base.aggregate",
             "position": [
-                1840,
-                1024
+                2000,
+                1008
             ],
             "typeVersion": 1
         },
@@ -118,11 +118,17 @@
             "name": "Send a message",
             "type": "n8n-nodes-base.gmail",
             "position": [
-                2000,
-                912
+                2160,
+                896
             ],
             "webhookId": "52ea8673-2068-4702-ad0b-30dddf90f811",
-            "typeVersion": 2.1
+            "typeVersion": 2.1,
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "HqoJkuYa2rsj8P3D",
+                    "name": "Gmail account"
+                }
+            }
         },
         {
             "parameters": {
@@ -155,7 +161,7 @@
         },
         {
             "parameters": {
-                "command": "=yt-dlp --cookies /data/cookies.txt --js-runtimes node --write-auto-sub --sub-lang \"en.*,live\" --skip-download {{ $json[\"yt URL\"] }} -o \"/data/%(title)s\"\n"
+                "command": "=yt-dlp --cookies /data/cookies/cookies.txt --js-runtimes node --write-auto-sub --sub-lang \"id.*,ind.*,en.*,live\" --skip-download {{ $json[\"yt URL\"] }} -o \"/data/%(title)s\"\n"
             },
             "id": "96d9e811-76f5-4bcf-8fec-0a6834cb181e",
             "name": "get transcript from yt-dlp",
@@ -237,7 +243,7 @@
                 },
                 "jsonOutput": true,
                 "options": {
-                    "systemMessage": "You are an expert short-form clip editor trained to extract viral moments from transcripts.\n"
+                    "systemMessage": "You are an expert short-form clip editor trained to extract viral moments from transcripts. The transcript may be in Indonesian. Analyze the content in its original language (Indonesian or English) to find the best viral hooks.\n"
                 }
             },
             "id": "1506da79-6049-43eb-bd62-f339efd80885",
@@ -248,7 +254,13 @@
                 400
             ],
             "typeVersion": 1,
-            "retryOnFail": true
+            "retryOnFail": true,
+            "credentials": {
+                "googlePalmApi": {
+                    "id": "WEbqBTsP4T3iQrsk",
+                    "name": "Google Gemini(PaLM) Api account"
+                }
+            }
         },
         {
             "parameters": {
@@ -310,8 +322,8 @@
             "name": "extract all clips paths",
             "type": "n8n-nodes-base.code",
             "position": [
-                0,
-                944
+                128,
+                1104
             ],
             "typeVersion": 2
         },
@@ -324,8 +336,8 @@
             "name": "Read clips from disk",
             "type": "n8n-nodes-base.readWriteFile",
             "position": [
-                608,
-                1008
+                768,
+                992
             ],
             "typeVersion": 1
         },
@@ -338,8 +350,8 @@
             "name": "extract clip file in base64",
             "type": "n8n-nodes-base.extractFromFile",
             "position": [
-                832,
-                1008
+                992,
+                992
             ],
             "typeVersion": 1
         },
@@ -353,8 +365,8 @@
             "name": "convert base64 to actual binary file",
             "type": "n8n-nodes-base.convertToFile",
             "position": [
-                1072,
-                1008
+                1232,
+                992
             ],
             "typeVersion": 1.1
         },
@@ -376,11 +388,17 @@
             "name": "Analyze the actual whole video",
             "type": "@n8n/n8n-nodes-langchain.googleGemini",
             "position": [
-                1312,
-                1008
+                1472,
+                992
             ],
             "retryOnFail": true,
-            "typeVersion": 1
+            "typeVersion": 1,
+            "credentials": {
+                "googlePalmApi": {
+                    "id": "WEbqBTsP4T3iQrsk",
+                    "name": "Google Gemini(PaLM) Api account"
+                }
+            }
         },
         {
             "parameters": {
@@ -390,8 +408,8 @@
             "name": "extract all actionable operations",
             "type": "n8n-nodes-base.code",
             "position": [
-                1520,
-                1008
+                1680,
+                992
             ],
             "typeVersion": 2
         },
@@ -424,8 +442,8 @@
             "name": "Filterout the not required operations",
             "type": "n8n-nodes-base.filter",
             "position": [
-                1696,
-                1024
+                1856,
+                1008
             ],
             "typeVersion": 2.2
         },
@@ -497,8 +515,8 @@
             "type": "n8n-nodes-base.wait",
             "typeVersion": 1.1,
             "position": [
-                416,
-                1040
+                576,
+                1024
             ],
             "webhookId": "12b1d62f-f507-4b0a-8d0e-843eb76bf1d8"
         },
@@ -510,8 +528,8 @@
             "name": "Loop Over Items2",
             "type": "n8n-nodes-base.splitInBatches",
             "position": [
-                496,
-                1504
+                928,
+                1488
             ],
             "typeVersion": 3
         },
@@ -524,8 +542,8 @@
             "name": "Split Out",
             "type": "n8n-nodes-base.splitOut",
             "position": [
-                2000,
-                1024
+                2160,
+                1008
             ],
             "typeVersion": 1
         },
@@ -558,8 +576,8 @@
             "name": "if operation is subtitles",
             "type": "n8n-nodes-base.if",
             "position": [
-                736,
-                1504
+                1168,
+                1488
             ],
             "typeVersion": 2.2
         },
@@ -572,8 +590,8 @@
             "name": "Execute operation on the clip",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                1008,
-                1632
+                1440,
+                1616
             ],
             "typeVersion": 1
         },
@@ -585,8 +603,8 @@
             "name": "Wait (according to how powerful your system is and how much ram you have)",
             "type": "n8n-nodes-base.wait",
             "position": [
-                1216,
-                1632
+                1648,
+                1616
             ],
             "webhookId": "028d083c-7e5a-48ec-ba53-80622cc221b9",
             "typeVersion": 1.1
@@ -600,8 +618,8 @@
             "name": "find height & width",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                1008,
-                1376
+                1440,
+                1360
             ],
             "typeVersion": 1
         },
@@ -613,8 +631,8 @@
             "name": "calculate relative subtitle size",
             "type": "n8n-nodes-base.code",
             "position": [
-                1216,
-                1376
+                1648,
+                1360
             ],
             "typeVersion": 2
         },
@@ -626,8 +644,8 @@
             "name": "burn subtitles",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                1408,
-                1376
+                1840,
+                1360
             ],
             "typeVersion": 1
         },
@@ -639,8 +657,8 @@
             "name": "Wait",
             "type": "n8n-nodes-base.wait",
             "position": [
-                1600,
-                1376
+                2032,
+                1360
             ],
             "webhookId": "3bc52ce2-6479-4861-9b04-12d6ea198320",
             "typeVersion": 1.1
@@ -1004,7 +1022,13 @@
         },
         "Loop Over Items2": {
             "main": [
-                [],
+                [
+                    {
+                        "node": "Loop Over Items1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
                 [
                     {
                         "node": "if operation is subtitles",
@@ -1110,16 +1134,7 @@
             ]
         }
     },
-    "pinData": {
-        "On form submission": [
-            {
-                "project name": "Testing",
-                "yt URL": "https://www.youtube.com/watch?v=rPIfitpeqv8",
-                "submittedAt": "2025-12-22T23:10:30.793-05:00",
-                "formMode": "test"
-            }
-        ]
-    },
+    "pinData": {},
     "meta": {
         "templateCredsSetupCompleted": true,
         "instanceId": "bf54e9075fb530ae768a31ec6ca9566a65cd8ff07fe5e5da90d1c06429be31a5"
