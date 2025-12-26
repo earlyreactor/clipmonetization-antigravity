@@ -1,0 +1,35 @@
+﻿remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       ΓÇöΓÇö Google OAuth Client ID ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
+remote:        locations:        
+remote:          - commit: 6cd2f0eaec9e1c38de3be44960149cd2a8390c93        
+remote:            path: client_secret_542380785138-mmd2kl9bka3n0nhi9rhu2bod1b9ejuuq.apps.googleusercontent.com.json:1        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/earlyreactor/clipmonetization-antigravity/security/secret-scanning/unblock-secret/37LLWDiqGpcTK8J0NU4WJjVajjH        
+remote:             
+remote:             
+remote:       ΓÇöΓÇö Google OAuth Client Secret ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
+remote:        locations:        
+remote:          - commit: 6cd2f0eaec9e1c38de3be44960149cd2a8390c93        
+remote:            path: client_secret_542380785138-mmd2kl9bka3n0nhi9rhu2bod1b9ejuuq.apps.googleusercontent.com.json:1        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/earlyreactor/clipmonetization-antigravity/security/secret-scanning/unblock-secret/37LLW6hUxAIyOgbYGEFWoAAU12L        
+remote:             
+remote: 
+remote: 
+To https://github.com/earlyreactor/clipmonetization-antigravity.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/earlyreactor/clipmonetization-antigravity.git'

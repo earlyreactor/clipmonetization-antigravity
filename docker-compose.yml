@@ -1,0 +1,20 @@
+services:
+  n8n:
+    build: .
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+      # Secure cookies off for localhost dev
+      - N8N_SECURE_COOKIE=false
+      - N8N_ENABLE_SHELL_COMMANDS=true
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      # Mount a local tmp folder to monitor media creation easily
+      - ./tmp_media:/tmp
+      - ./cookies.txt:/data/cookies.txt
+      - ./n8n_data:/data
+    restart: unless-stopped
