@@ -2,12 +2,12 @@
     "nodes": [
         {
             "parameters": {},
-            "id": "ec2d842b-a8cf-4fff-beed-893e1831f898",
+            "id": "66354882-32f3-49c7-bbd8-7007e4ccf680",
             "name": "When clicking ‘Execute workflow’",
             "type": "n8n-nodes-base.manualTrigger",
             "position": [
-                46624,
-                16128
+                -64,
+                512
             ],
             "typeVersion": 1
         },
@@ -16,12 +16,12 @@
                 "operation": "text",
                 "options": {}
             },
-            "id": "ac8f13ce-0f51-462e-8d3d-3d4cd392a00c",
+            "id": "07b917b8-3e30-4a6c-acd4-3d3aa87fe9c0",
             "name": "Extract from File",
             "type": "n8n-nodes-base.extractFromFile",
             "position": [
-                47520,
-                16048
+                832,
+                432
             ],
             "typeVersion": 1
         },
@@ -29,12 +29,12 @@
             "parameters": {
                 "options": {}
             },
-            "id": "1007586c-ace9-41b2-897d-14e3790d12ac",
+            "id": "5abdd723-0db3-4804-be9e-db300d17dd01",
             "name": "Loop Over Items",
             "type": "n8n-nodes-base.splitInBatches",
             "position": [
-                46672,
-                17152
+                -16,
+                1536
             ],
             "typeVersion": 3
         },
@@ -56,12 +56,12 @@
                 },
                 "options": {}
             },
-            "id": "2d3c8b4c-043a-4bf2-ba0d-4b26e0ddecfd",
+            "id": "d3518230-6cd0-43c7-a1df-1039d176e239",
             "name": "On form submission",
             "type": "n8n-nodes-base.formTrigger",
             "position": [
-                46624,
-                15792
+                -64,
+                176
             ],
             "webhookId": "18c0c0c2-6f4c-4764-80d4-ae29d378bfcf",
             "typeVersion": 2.3
@@ -70,12 +70,12 @@
             "parameters": {
                 "jsCode": "// Get the log from the previous node\nconst stdout = items[0].json.stdout;\nlet filePath = null;\n\n// Strategy 1: Look for \"Merge\" line (final step for best video)\nconst mergeMatch = stdout.match(/Merging formats into \"(.*?)\"/);\nif (mergeMatch) {\n  filePath = mergeMatch[1];\n}\n\n// Strategy 2: Look for \"Destination\" line\nif (!filePath) {\n  const downloadMatch = stdout.match(/Destination: (.*?)(?:\\n|\\r|$)/);\n  if (downloadMatch) {\n    filePath = downloadMatch[1];\n  }\n}\n\n// Strategy 3: Look for \"already downloaded\" line\nif (!filePath) {\n  const alreadyMatch = stdout.match(/\\[download\\] (.*?) has already been downloaded/);\n  if (alreadyMatch) {\n    filePath = alreadyMatch[1];\n  }\n}\n\n// Fallback: Check for simple file path in stdout if it looks like a clean path\nif (!filePath) {\n   // Ensure we don't return null if possible, maybe log error\n   console.log(\"Could not parse filename from stdout\");\n}\n\nreturn {\n  json: {\n    downloadedFile: filePath\n  }\n};"
             },
-            "id": "54ff2f7f-54d8-4fb0-ae6d-09891149d4c7",
+            "id": "50bd4779-0351-48dc-b436-4ab6635f75dd",
             "name": "get the downloaded video location",
             "type": "n8n-nodes-base.code",
             "position": [
-                48544,
-                15824
+                1856,
+                208
             ],
             "typeVersion": 2
         },
@@ -83,12 +83,12 @@
             "parameters": {
                 "options": {}
             },
-            "id": "47f47484-2314-46af-8e98-aafd745142c0",
+            "id": "fc1eea4a-2629-4eb7-beee-212eb3d8ee1f",
             "name": "Loop Over Items1",
             "type": "n8n-nodes-base.splitInBatches",
             "position": [
-                46992,
-                16544
+                304,
+                928
             ],
             "typeVersion": 3
         },
@@ -97,12 +97,12 @@
                 "aggregate": "aggregateAllItemData",
                 "options": {}
             },
-            "id": "a3660aac-a389-4dd6-a5a6-823705f620c2",
+            "id": "281a4881-bad2-4f49-a131-510bcb03828a",
             "name": "Aggregate",
             "type": "n8n-nodes-base.aggregate",
             "position": [
-                48528,
-                16640
+                1840,
+                1024
             ],
             "typeVersion": 1
         },
@@ -114,21 +114,15 @@
                 "message": "clips are ready!",
                 "options": {}
             },
-            "id": "956f96f3-c726-4e5d-8c5b-7c363bf9051f",
+            "id": "68f4a129-f6e6-431a-9135-b6f1a51174a2",
             "name": "Send a message",
             "type": "n8n-nodes-base.gmail",
             "position": [
-                48688,
-                16528
+                2000,
+                912
             ],
             "webhookId": "52ea8673-2068-4702-ad0b-30dddf90f811",
-            "typeVersion": 2.1,
-            "credentials": {
-                "gmailOAuth2": {
-                    "id": "LmZFIsMpPSKXVDXz",
-                    "name": "Gmail account"
-                }
-            }
+            "typeVersion": 2.1
         },
         {
             "parameters": {
@@ -137,12 +131,12 @@
                 "width": 2416,
                 "color": 4
             },
-            "id": "3ef54327-6364-47f7-9c28-723b06773482",
+            "id": "b22a40c7-2486-4706-a515-119b912398f5",
             "name": "Sticky Note1",
             "type": "n8n-nodes-base.stickyNote",
             "position": [
-                46576,
-                15696
+                -112,
+                80
             ],
             "typeVersion": 1
         },
@@ -150,12 +144,12 @@
             "parameters": {
                 "command": "=yt-dlp --cookies /data/cookies.txt --js-runtimes node -o \"/data/clips/%(title)s.%(ext)s\" \"{{ $json[\"yt URL\"] }}\""
             },
-            "id": "68d5957c-f612-4639-bfed-9dac2a6dc578",
+            "id": "e47a5df8-2d4b-48be-9c04-8b5ccab846f2",
             "name": "video download with yt-dlp",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                46992,
-                15840
+                304,
+                224
             ],
             "typeVersion": 1
         },
@@ -163,12 +157,12 @@
             "parameters": {
                 "command": "=yt-dlp --cookies /data/cookies.txt --js-runtimes node --write-auto-sub --sub-lang \"en.*,live\" --skip-download {{ $json[\"yt URL\"] }} -o \"/data/%(title)s\"\n"
             },
-            "id": "0ee9bbfe-0e94-4db6-a3f3-fb50fb95e94b",
+            "id": "96d9e811-76f5-4bcf-8fec-0a6834cb181e",
             "name": "get transcript from yt-dlp",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                47008,
-                16112
+                320,
+                496
             ],
             "typeVersion": 1
         },
@@ -176,12 +170,12 @@
             "parameters": {
                 "jsCode": "// Get the simple text log\nconst stdout = items[0].json.stdout;\nlet filePath = null;\n\n// Strategy 1: Subtitles specific\nconst subMatch = stdout.match(/Writing video subtitles to: (.*)/);\nif (subMatch) {\n  filePath = subMatch[1];\n}\n\n// Strategy 2: Merge\nif (!filePath) {\n  const mergeMatch = stdout.match(/Merging formats into \"(.*?)\"/);\n  if (mergeMatch) {\n    filePath = mergeMatch[1];\n  }\n}\n\n// Strategy 3: Destination\nif (!filePath) {\n  const downloadMatch = stdout.match(/Destination: (.*?)(?:\\n|\\r|$)/);\n  if (downloadMatch) {\n    filePath = downloadMatch[1];\n  }\n}\n\n// Strategy 4: Already downloaded\nif (!filePath) {\n  const alreadyMatch = stdout.match(/(?:has already been downloaded|already downloaded).*?([\\w\\/:\\\\.-]+)/);\n  // Fallback for simple 'filename has already been downloaded'\n  const simpleAlready = stdout.match(/\\[download\\] (.*?) has already been downloaded/);\n  \n  if (alreadyMatch && alreadyMatch[1]) {\n     filePath = alreadyMatch[1];\n  } else if (simpleAlready) {\n     filePath = simpleAlready[1];\n  }\n}\n\nreturn {\n  json: {\n    downloadedFile: filePath ? filePath.trim() : null\n  }\n};"
             },
-            "id": "0ca81359-83ac-4e72-a7f5-41be6b8ea3c2",
+            "id": "3e4a18d8-7087-4e52-8488-5e4b0de6a0a1",
             "name": "extract filepath",
             "type": "n8n-nodes-base.code",
             "position": [
-                47200,
-                16032
+                512,
+                416
             ],
             "typeVersion": 2
         },
@@ -190,12 +184,12 @@
                 "fileSelector": "={{ $json.downloadedFile }}",
                 "options": {}
             },
-            "id": "e7072b44-e62d-4af4-a1f0-9745630e7422",
+            "id": "04910749-2328-471f-9168-0682b43a1499",
             "name": "read srt from disk",
             "type": "n8n-nodes-base.readWriteFile",
             "position": [
-                47360,
-                16112
+                672,
+                496
             ],
             "typeVersion": 1,
             "alwaysOutputData": false
@@ -204,12 +198,12 @@
             "parameters": {
                 "jsCode": "const raw = $json.data;\n\nconst lines = raw.split(/\\r?\\n/);\n\nconst segments = [];\nlet current = null;\n\nfunction cleanText(t) {\n  return t\n    .replace(/<c>/g, \"\")\n    .replace(/<\\/c>/g, \"\")\n    .replace(/<\\d+:\\d+:\\d+\\.\\d+>/g, \"\")\n    .replace(/\\s+/g, \" \")\n    .trim();\n}\n\nconst timestampRegex = /(\\d{2}:\\d{2}:\\d{2}\\.\\d{3})\\s*-->\\s*(\\d{2}:\\d{2}:\\d{2}\\.\\d{3})/;\n\nfor (let line of lines) {\n  line = line.trim();\n  if (!line) continue;\n\n  // If line contains a timestamp line\n  const match = line.match(timestampRegex);\n  if (match) {\n    // Save previous\n    if (current && current.text.trim()) {\n      segments.push({\n        start: current.start,\n        end: current.end,\n        text: cleanText(current.text)\n      });\n    }\n\n    current = {\n      start: match[1],\n      end: match[2],\n      text: \"\"\n    };\n\n    continue;\n  }\n\n  // Text line\n  if (current) {\n    current.text += \" \" + cleanText(line);\n  }\n}\n\n// Push last segment\nif (current && current.text.trim()) {\n  segments.push({\n    start: current.start,\n    end: current.end,\n    text: cleanText(current.text)\n  });\n}\n\nreturn segments;\n"
             },
-            "id": "7e0cb6ee-b1a3-4111-83bf-396b5f7bc318",
+            "id": "5aefbd45-b2df-49d3-8985-a09bfb9aa98b",
             "name": "formating of data",
             "type": "n8n-nodes-base.code",
             "position": [
-                47664,
-                16128
+                976,
+                512
             ],
             "typeVersion": 2
         },
@@ -217,12 +211,12 @@
             "parameters": {
                 "jsCode": "const items = $items();\nconst size = 150; // number of caption segments per chunk\n\nlet chunks = [];\nfor (let i = 0; i < items.length; i += size) {\n    const slice = items.slice(i, i + size);\n    chunks.push({\n        json: {\n            chunkIndex: chunks.length,\n            captions: slice.map(s => s.json)\n        }\n    });\n}\n\nreturn chunks;\n"
             },
-            "id": "7453c91f-a5a3-4322-b4a5-5f916ee4789d",
+            "id": "287acd8e-906d-4d48-ab1b-bd7fbd6a1ac9",
             "name": "some more formating",
             "type": "n8n-nodes-base.code",
             "position": [
-                47824,
-                16064
+                1136,
+                448
             ],
             "typeVersion": 2
         },
@@ -246,43 +240,37 @@
                     "systemMessage": "You are an expert short-form clip editor trained to extract viral moments from transcripts.\n"
                 }
             },
-            "id": "57f75ed6-cfec-44ef-bed7-55b1bd194567",
+            "id": "1506da79-6049-43eb-bd62-f339efd80885",
             "name": "viral clips identification",
             "type": "@n8n/n8n-nodes-langchain.googleGemini",
             "position": [
-                48192,
-                16016
+                1504,
+                400
             ],
             "typeVersion": 1,
-            "retryOnFail": true,
-            "credentials": {
-                "googlePalmApi": {
-                    "id": "HIOXjFOMWTSFV5qq",
-                    "name": "marshaltrinovgeminiapi"
-                }
-            }
+            "retryOnFail": true
         },
         {
             "parameters": {
                 "jsCode": "const results = [];\nconst items = $items();\n\n// Loop all AI responses\nfor (const item of items) {\n  try {\n    // The JSON output returned as text string\n    const raw = item.json.content.parts[0].text;\n\n    // Parse the JSON array inside the string\n    const clips = JSON.parse(raw);\n\n    // Add clips to results\n    results.push(...clips);\n  } catch (e) {\n    console.log(\"Error parsing:\", e);\n  }\n}\n\n// Sort by score (highest first)\nresults.sort((a, b) => b.score - a.score);\n\n// OPTIONAL: keep only top 7 clips\nconst topClips = results.slice(0, 7);\n\nreturn topClips.map(c => ({ json: c }));\n"
             },
-            "id": "b0fd9e94-7689-4b29-b99b-326684727ff6",
+            "id": "0b001a57-0b58-48c0-8b0b-85e55e17468c",
             "name": "filter out top clips according to score",
             "type": "n8n-nodes-base.code",
             "position": [
-                48576,
-                16080
+                1888,
+                464
             ],
             "typeVersion": 2
         },
         {
             "parameters": {},
-            "id": "688b287c-5648-44ac-8a61-5ee2ab64b86e",
+            "id": "fb6cc33b-e7b5-4019-a9d7-37a335a08430",
             "name": "wait for both branches to complete and merge",
             "type": "n8n-nodes-base.merge",
             "position": [
-                48816,
-                15952
+                2128,
+                336
             ],
             "typeVersion": 3.2
         },
@@ -290,12 +278,12 @@
             "parameters": {
                 "jsCode": "// Get all incoming items from Join node\nconst items = $input.all();\n\n// First item = video metadata\nconst videoItem = items[0].json;\nconst videoPath = videoItem.downloadedFile;\n\n// Remaining items = clip candidates from AI\nconst clips = items.slice(1).map(i => i.json);\n\n// Build merged output\nconst merged = clips.map(c => ({\n  json: {\n    start: c.start,\n    end: c.end,\n    hook: c.hook,\n    score: c.score,\n    videoPath: videoPath\n  }\n}));\n\nreturn merged;\n"
             },
-            "id": "2ebc0a24-c087-4a88-b48c-e0693302a670",
+            "id": "84b476a6-339b-4eeb-a068-8f589428dd05",
             "name": "seperate actionable data items",
             "type": "n8n-nodes-base.code",
             "position": [
-                48816,
-                16224
+                2128,
+                608
             ],
             "typeVersion": 2
         },
@@ -304,12 +292,12 @@
                 "executeOnce": false,
                 "command": "=ffmpeg -ss {{$json.start}} -to {{$json.end}} \\\n-i \"{{$json.videoPath}}\" \\\n-c:v libx264 -preset fast -crf 22 \\\n-c:a aac -b:a 128k \\\n\"/data/clips/{{ $json.start }}_{{ $json.end }}.mp4\"\n"
             },
-            "id": "3c1c9dbc-4a1e-495b-a5c0-8fee13c61c1d",
+            "id": "cea58acb-2261-41b8-90bc-cfd9a30cacd9",
             "name": "simple clipping (still in orignal aspect ratio)",
             "type": "n8n-nodes-base.executeCommand",
             "position": [
-                46864,
-                17168
+                176,
+                1552
             ],
             "typeVersion": 1,
             "alwaysOutputData": false
@@ -318,12 +306,12 @@
             "parameters": {
                 "jsCode": "// Get all items from FFmpeg Execute Command node\nconst items = $input.all();\n\nconst output = [];\n\nfor (const item of items) {\n  const stderr = item.json.stderr || \"\";\n\n  // Extract path: Output #0, mp4, to '...'\n  const match = stderr.match(/to '([^']+)'/);\n\n  const outputFile = match ? match[1] : null;\n\n  output.push({\n    json: {\n      outputFile,\n      exitCode: item.json.exitCode,\n      start: item.json.start,\n      end: item.json.end,\n      hook: item.json.hook,\n      score: item.json.score\n    }\n  });\n}\n\nreturn output;\n"
             },
-            "id": "1cdc537f-8b48-410d-961c-901386e0e5de",
+            "id": "5862625b-31b9-4ea5-b888-9bff12371021",
             "name": "extract all clips paths",
             "type": "n8n-nodes-base.code",
             "position": [
-                46688,
-                16560
+                0,
+                944
             ],
             "typeVersion": 2
         },
@@ -332,12 +320,12 @@
                 "fileSelector": "={{ $json.outputFile }}",
                 "options": {}
             },
-            "id": "4c75c4ee-d3c2-4546-9c61-a98c3a79a537",
+            "id": "204f6a5c-53f0-4eb8-911e-17c83c2390d7",
             "name": "Read clips from disk",
             "type": "n8n-nodes-base.readWriteFile",
             "position": [
-                47296,
-                16624
+                608,
+                1008
             ],
             "typeVersion": 1
         },
@@ -346,12 +334,12 @@
                 "operation": "binaryToPropery",
                 "options": {}
             },
-            "id": "213d4e5d-f6f5-4dc6-8a2c-f7832f6e7aae",
+            "id": "597ffdca-5199-4a0c-89d2-bf337d5b12cb",
             "name": "extract clip file in base64",
             "type": "n8n-nodes-base.extractFromFile",
             "position": [
-                47520,
-                16624
+                832,
+                1008
             ],
             "typeVersion": 1
         },
@@ -361,12 +349,12 @@
                 "sourceProperty": "data",
                 "options": {}
             },
-            "id": "b4cc81b3-59e4-412c-9dcc-c7595671345b",
+            "id": "ae44879b-9d76-43e0-a931-0f8814988f6c",
             "name": "convert base64 to actual binary file",
             "type": "n8n-nodes-base.convertToFile",
             "position": [
-                47760,
-                16624
+                1072,
+                1008
             ],
             "typeVersion": 1.1
         },
@@ -384,32 +372,26 @@
                 "inputType": "binary",
                 "options": {}
             },
-            "id": "adf1149a-d346-4055-8062-ec9b30815906",
+            "id": "1578383e-cfdf-453e-9ea5-686fbbd77c55",
             "name": "Analyze the actual whole video",
             "type": "@n8n/n8n-nodes-langchain.googleGemini",
             "position": [
-                48000,
-                16624
+                1312,
+                1008
             ],
             "retryOnFail": true,
-            "typeVersion": 1,
-            "credentials": {
-                "googlePalmApi": {
-                    "id": "HIOXjFOMWTSFV5qq",
-                    "name": "marshaltrinovgeminiapi"
-                }
-            }
+            "typeVersion": 1
         },
         {
             "parameters": {
                 "jsCode": "// =====================================================\n// VIDEO EDIT PLANNER - n8n JavaScript Node (FINAL v5)\n// =====================================================\n// This node parses Gemini's analysis and creates a \n// sequential FFmpeg task pipeline\n// =====================================================\n\n// =====================================================\n// 1. GET INPUT VIDEO PATH SAFELY\n// =====================================================\nlet inputVideoPath = null;\ntry {\n    // Option A: Try getting from current item first (Best for loops)\n    if ($('Loop Over Items1') && $('Loop Over Items1').item) {\n        inputVideoPath = $('Loop Over Items1').item.json.outputFile;\n    }\n    // Option B: Fallback to the specific node you referenced in your prompt\n    else if ($('Read clips from disk').first().json.fileName) {\n        inputVideoPath = $('Read clips from disk').first().json.fileName;\n    }\n    // Option C: Generic fallback to previous node output\n    else if ($input.first().json.outputFile) {\n        inputVideoPath = $input.first().json.outputFile;\n    }\n} catch (e) {\n    // Ignore initial lookup errors, we check validity below\n}\n\n// Fallback if path is totally missing (prevents crash, helps debug)\nif (!inputVideoPath) {\n    inputVideoPath = \"/data/clips/placeholder_debug.mp4\";\n}\n\n// *** CRITICAL FIX: HANDLE COLONS IN FILENAMES ***\n// If path doesn't start with '/' or '.', FFmpeg treats \"00:10...\" as a protocol.\n// We force it to be an absolute path if it looks like just a filename.\nif (!inputVideoPath.startsWith('/') && !inputVideoPath.startsWith('.')) {\n    // Assuming your files are in /data/clips/ based on standard n8n docker setups\n    inputVideoPath = `/data/clips/${inputVideoPath}`;\n}\n\n// =====================================================\n// 2. PARSE GEMINI RESPONSE (ROBUST)\n// =====================================================\nconst geminiRawText = $input.first().json.content?.parts?.[0]?.text;\nlet editorInstructions;\n\nfunction cleanJSON(str) {\n    if (!str) return \"{}\";\n\n    // 1. Remove markdown code blocks (improved regex)\n    // Handles: ```json, ```, ```js etc\n    str = str.replace(/```[a-zA-Z]*\\n?([\\s\\S]*?)\\n?```/g, \"$1\");\n    // Some models just output ``` without lang\n    str = str.replace(/```/g, \"\");\n\n    // 2. Remove text outside the outermost braces {}\n    const firstOpen = str.indexOf('{');\n    const lastClose = str.lastIndexOf('}');\n    if (firstOpen !== -1 && lastClose !== -1) {\n        str = str.substring(firstOpen, lastClose + 1);\n    }\n\n    // 3. Fix common JSON issues\n    // Replace trailing commas before closing braces/brackets\n    str = str.replace(/,(\\s*[}\\]])/g, '$1');\n\n    // FIX: Missing commas between objects in array \"}{\" -> \"},{\"\n    str = str.replace(/}(\\s*){/g, '},$1{');\n\n    // FIX: Missing comma after array closing bracket ] before next key \"\n    // Example: \"key\": [ ... ] \"next\": ...\n    str = str.replace(/](\\s*)\"/g, '],$1\"');\n\n    // FIX: Missing comma after object closing brace } before next key \"\n    // Example: \"key\": { ... } \"next\": ...\n    // Be careful not to match nested closing inside string? No, strings have quotes.\n    // This is a heuristic.\n    str = str.replace(/}(\\s*)\"/g, '},$1\"');\n\n    return str.trim();\n}\n\n// FALLBACK PARSER using Function constructor (safe-ish eval for object literals)\n// Handles single quotes, unquoted keys, trailing commas that regex missed.\nfunction looseJsonParse(text) {\n    try {\n        return JSON.parse(text);\n    } catch (e) {\n        try {\n            // Treat as JS object literal\n            // Wrap in parens to ensure expression\n            const fn = new Function(\"return (\" + text + \")\");\n            return fn();\n        } catch (e2) {\n            throw e; // Rethrow original or new error\n        }\n    }\n}\n\ntry {\n    if (!geminiRawText) {\n        throw new Error(\"Gemini response is empty or structure has changed\");\n    }\n\n    const tempCleaned = cleanJSON(geminiRawText);\n\n    try {\n        const parsedData = looseJsonParse(tempCleaned);\n        editorInstructions = parsedData.editor_instructions;\n    } catch (e) {\n        // If standard parse fails, try a very basic \"loose\" parser/repair if possible\n        // For now, we just throw with context\n        throw new Error(`JSON Parse Error: ${e.message}. Cleaned Text: ${tempCleaned.substring(0, 300)}...`);\n    }\n\n} catch (error) {\n    throw new Error(`Failed to parse Gemini response: ${error.message}`);\n}\n\n// =====================================================\n// HELPER FUNCTIONS\n// =====================================================\n\n// *** CRITICAL FIX: ROBUST TIME PARSING ***\n// Handles HH:MM:SS (3 parts) AND MM:SS (2 parts) AND SS (1 part)\nfunction timeToSeconds(timeStr) {\n    if (!timeStr) return 0;\n\n    // Clean string: replace commas with dots, remove whitespace\n    const cleanStr = timeStr.toString().replace(',', '.').trim();\n    const parts = cleanStr.split(':').map(parseFloat);\n\n    if (parts.length === 3) {\n        return parts[0] * 3600 + parts[1] * 60 + parts[2];\n    } else if (parts.length === 2) {\n        return parts[0] * 60 + parts[1];\n    } else if (parts.length === 1) {\n        return parts[0];\n    }\n    return 0;\n}\n\n// Generate unique filename for each step\nfunction generateStepFilename(clipId, step, extension = 'mp4') {\n    return `/data/clips/${clipId}_${step}.${extension}`;\n}\n\n// Create SRT subtitle file content\nfunction generateSRTContent(transcript) {\n    let srtContent = '';\n    if (Array.isArray(transcript)) {\n        transcript.forEach((line, index) => {\n            // Ensure comma format for SRT timestamp\n            const startTime = (line.start || \"00:00:00,000\").replace('.', ',');\n            const endTime = (line.end || \"00:00:00,000\").replace('.', ',');\n\n            srtContent += `${index + 1}\\n`;\n            srtContent += `${startTime} --> ${endTime}\\n`;\n            srtContent += `${line.text}\\n\\n`;\n        });\n    }\n    return srtContent;\n}\n\n// =====================================================\n// BUILD TASK PIPELINE\n// =====================================================\n\nconst clipId = $runIndex.toString().padStart(4, \"0\");\nconst tasks = [];\n\nlet currentInput = inputVideoPath;\nlet stepCounter = 1;\n\n// =====================================================\n// STEP 1: TRIM + CROP COMBINED (ROBUST SCALE-TO-FILL)\n// =====================================================\nconst hasTrim = editorInstructions && editorInstructions.trimming && editorInstructions.trimming.required;\nconst hasCrop = editorInstructions && editorInstructions.cropping && editorInstructions.cropping.required;\n\n// Helper to build robust filter for 9:16 conversion\n// Strategy: Scale height to 1920 (HD Vertical), then Crop width to 1080 (Center)\n// This guarantees valid output for any Input Aspect Ratio > 9:16\nconst verticalFilter = \"scale=-1: 1920,crop=1080: 1920:(iw-ow)/2: 0,setsar=1\";\n\nif (editorInstructions) {\n\n    // Add null checks for editorInstructions.trimming/cropping to prevent crashes if missing\n\n    if (hasTrim && hasCrop) {\n        // COMBINE trim and vertical crop\n        const trim = editorInstructions.trimming;\n        const outputFile = generateStepFilename(clipId, `${stepCounter}_trim_crop`);\n\n        const startSeconds = timeToSeconds(trim.start_time);\n        const endSeconds = timeToSeconds(trim.end_time);\n\n        // Validation\n        if (isNaN(startSeconds) || isNaN(endSeconds)) throw new Error(`Invalid time format in Gemini response`);\n\n        const duration = endSeconds - startSeconds;\n\n        // Note: -ss placed BEFORE -i for fast seek\n        tasks.push({\n            step: 'trim_crop',\n            stepNumber: stepCounter,\n            enabled: true,\n            inputFile: currentInput,\n            outputFile: outputFile,\n            command: `ffmpeg -ss ${startSeconds} -i \"${currentInput}\" -t ${duration} -vf \"${verticalFilter}\" -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k \"${outputFile}\"`,\n            description: 'Trim and convert to Vertical 9:16 (Zoom-to-Fill)',\n            params: {\n                start_time: trim.start_time,\n                end_time: trim.end_time,\n                duration: duration\n            }\n        });\n\n        currentInput = outputFile;\n        stepCounter++;\n\n    } else if (hasTrim) {\n        // Only trim (Keep original aspect ratio)\n        const trim = editorInstructions.trimming;\n        const outputFile = generateStepFilename(clipId, `${stepCounter}_trimmed`);\n\n        const startSeconds = timeToSeconds(trim.start_time);\n        const endSeconds = timeToSeconds(trim.end_time);\n\n        if (isNaN(startSeconds) || isNaN(endSeconds)) throw new Error(`Invalid time format in Gemini response`);\n\n        const duration = endSeconds - startSeconds;\n\n        tasks.push({\n            step: 'trim',\n            stepNumber: stepCounter,\n            enabled: true,\n            inputFile: currentInput,\n            outputFile: outputFile,\n            command: `ffmpeg -ss ${startSeconds} -i \"${currentInput}\" -t ${duration} -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k \"${outputFile}\"`,\n            description: trim.description || 'Trim video to specified time range',\n            params: {\n                start_time: trim.start_time,\n                end_time: trim.end_time,\n                duration: duration\n            }\n        });\n\n        currentInput = outputFile;\n        stepCounter++;\n\n    } else if (hasCrop) {\n        // Only crop (Convert whole video to Vertical)\n        const outputFile = generateStepFilename(clipId, `${stepCounter}_cropped`);\n\n        tasks.push({\n            step: 'crop',\n            stepNumber: stepCounter,\n            enabled: true,\n            inputFile: currentInput,\n            outputFile: outputFile,\n            command: `ffmpeg -i \"${currentInput}\" -vf \"${verticalFilter}\" -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k \"${outputFile}\"`,\n            description: 'Convert to Vertical 9:16 (Zoom-to-Fill)',\n            params: {\n                filter: verticalFilter\n            }\n        });\n\n        currentInput = outputFile;\n        stepCounter++;\n\n    } else {\n        // Neither trim nor crop\n        tasks.push({\n            step: 'trim_crop',\n            stepNumber: stepCounter,\n            enabled: false,\n            inputFile: null,\n            outputFile: null,\n            command: null,\n            description: 'No trimming or cropping required'\n        });\n        stepCounter++;\n    }\n\n    // =====================================================\n    // STEP 3: CREATE SRT FILE (separate task)\n    // =====================================================\n    if (editorInstructions.subtitles && editorInstructions.subtitles.required) {\n        const subs = editorInstructions.subtitles;\n        const srtFile = generateStepFilename(clipId, 'subtitles', 'srt');\n\n        // Generate SRT content\n        const srtContent = generateSRTContent(subs.transcript);\n\n        tasks.push({\n            step: 'create_srt',\n            stepNumber: stepCounter,\n            enabled: true,\n            inputFile: null,\n            outputFile: srtFile,\n            srtContent: srtContent,\n            // Using cat with heredoc to write file safely\n            command: `cat > \"${srtFile}\" << 'EOF'\\n${srtContent}EOF`,\n            description: 'Create SRT subtitle file',\n            params: {\n                srt_file: srtFile,\n                lines_count: subs.transcript ? subs.transcript.length : 0\n            }\n        });\n\n        stepCounter++;\n\n        // =====================================================\n        // STEP 4: BURN SUBTITLES INTO VIDEO\n        // =====================================================\n        const outputFile = generateStepFilename(clipId, `${stepCounter}_subtitled`);\n\n        // YouTube Shorts style: smaller, cleaner captions\n        const fontSize = 42;\n        const primaryColor = '&H00FFFF&';  // Yellow (BGR)\n        const borderColor = '&H000000&';   // Black outline\n        const fontName = 'Arial';\n        const finalOutlineWidth = 3;\n\n        // MarginV controls distance from bottom\n        const subtitlesFilter = `subtitles=${srtFile}:force_style='FontName=${fontName},FontSize=${fontSize},PrimaryColour=${primaryColor},OutlineColour=${borderColor},Outline=${finalOutlineWidth},Bold=1,Alignment=2,MarginV=120'`;\n\n        tasks.push({\n            step: 'subtitles',\n            stepNumber: stepCounter,\n            enabled: true,\n            inputFile: currentInput,\n            outputFile: outputFile,\n            srtFile: srtFile,\n            command: `ffmpeg -i \"${currentInput}\" -vf \"${subtitlesFilter}\" -c:v libx264 -preset fast -crf 23 -c:a copy \"${outputFile}\"`,\n            description: 'Burn styled subtitles into video',\n            params: {\n                placement: subs.placement,\n                font_style: subs.font_style,\n                font_size: fontSize,\n                font_color: subs.font_color,\n                transcript_lines: subs.transcript ? subs.transcript.length : 0\n            }\n        });\n\n        currentInput = outputFile;\n        stepCounter++;\n    } else {\n        // Push disabled tasks to keep pipeline structure\n        tasks.push({\n            step: 'create_srt',\n            stepNumber: stepCounter,\n            enabled: false,\n            description: 'Subtitles not required'\n        });\n        stepCounter++;\n\n        tasks.push({\n            step: 'subtitles',\n            stepNumber: stepCounter,\n            enabled: false,\n            description: 'Subtitles not required'\n        });\n        stepCounter++;\n    }\n\n    // =====================================================\n    // STEP 5: AUDIO NORMALIZATION (Optional)\n    // =====================================================\n    const normalizeOutputFile = generateStepFilename(clipId, `${stepCounter}_normalized`);\n    tasks.push({\n        step: 'audio_normalize',\n        stepNumber: stepCounter,\n        enabled: false, // Set to true if you want audio normalization\n        inputFile: currentInput,\n        outputFile: normalizeOutputFile,\n        command: `ffmpeg -i \"${currentInput}\" -af loudnorm -c:v copy \"${normalizeOutputFile}\"`,\n        description: 'Audio normalization (disabled by default)'\n    });\n\n    // If audio normalization is enabled, update currentInput\n    if (tasks[tasks.length - 1].enabled) {\n        currentInput = normalizeOutputFile;\n    }\n    stepCounter++;\n\n    // =====================================================\n    // STEP 6: FINAL OUTPUT\n    // =====================================================\n    const finalOutputFile = generateStepFilename(clipId, 'final');\n    tasks.push({\n        step: 'finalize',\n        stepNumber: stepCounter,\n        enabled: true,\n        inputFile: currentInput,\n        outputFile: finalOutputFile,\n        command: `cp \"${currentInput}\" \"${finalOutputFile}\"`,\n        description: 'Copy final processed video',\n        params: {\n            finalOutput: finalOutputFile\n        }\n    });\n}\n\n// =====================================================\n// OUTPUT RESULTS\n// =====================================================\n\nreturn tasks.map(task => ({\n    json: {\n        ...task,\n        clipId: clipId,\n        originalInput: inputVideoPath,\n        timestamp: new Date().toISOString()\n    }\n}));\n"
             },
-            "id": "746c614e-2b63-4b14-b075-25e0bb6d8e31",
+            "id": "89bc954c-7ae0-4bc3-a2a6-74ed5584bc1d",
             "name": "extract all actionable operations",
             "type": "n8n-nodes-base.code",
             "position": [
-                48208,
-                16624
+                1520,
+                1008
             ],
             "typeVersion": 2
         },
@@ -438,56 +420,14 @@
                 },
                 "options": {}
             },
-            "id": "01fa8e7d-7ddf-4479-a933-c2755521d335",
+            "id": "7b8a24ff-13e9-445e-ba92-8adf04eb1e79",
             "name": "Filterout the not required operations",
             "type": "n8n-nodes-base.filter",
             "position": [
-                48384,
-                16640
+                1696,
+                1024
             ],
             "typeVersion": 2.2
-        },
-        {
-            "parameters": {
-                "workflowId": {
-                    "__rl": true,
-                    "value": "pfHoLsoE51PsZJdX",
-                    "mode": "list",
-                    "cachedResultUrl": "/workflow/pfHoLsoE51PsZJdX",
-                    "cachedResultName": "ClipperMonetization-Editing"
-                },
-                "workflowInputs": {
-                    "mappingMode": "defineBelow",
-                    "value": {},
-                    "matchingColumns": [
-                        "data"
-                    ],
-                    "schema": [
-                        {
-                            "id": "data",
-                            "displayName": "data",
-                            "required": false,
-                            "defaultMatch": false,
-                            "display": true,
-                            "canBeUsedToMatch": true,
-                            "type": "array",
-                            "removed": false
-                        }
-                    ],
-                    "attemptToConvertTypes": false,
-                    "convertFieldsToString": true
-                },
-                "options": {}
-            },
-            "id": "88cc9b47-03f0-4802-abb5-dd17d68e1818",
-            "name": "Call subworkflow",
-            "type": "n8n-nodes-base.executeWorkflow",
-            "retryOnFail": true,
-            "position": [
-                48688,
-                16640
-            ],
-            "typeVersion": 1.3
         },
         {
             "parameters": {
@@ -496,12 +436,12 @@
                 "width": 2416,
                 "color": 5
             },
-            "id": "83ddbd1f-9212-4444-a0a4-2d2a240b6f1b",
+            "id": "cb6d1475-0c9d-4059-99b5-19b22694e176",
             "name": "Sticky Note2",
             "type": "n8n-nodes-base.stickyNote",
             "position": [
-                46576,
-                16448
+                -112,
+                832
             ],
             "typeVersion": 1
         },
@@ -512,12 +452,12 @@
                 "width": 464,
                 "color": 3
             },
-            "id": "9a9d9f6d-528e-45e4-b00f-0acc398ce1be",
+            "id": "558f72ad-8651-4e87-a3fa-845402662926",
             "name": "Sticky Note3",
             "type": "n8n-nodes-base.stickyNote",
             "position": [
-                46592,
-                17088
+                -96,
+                1472
             ],
             "typeVersion": 1
         },
@@ -525,26 +465,26 @@
             "parameters": {
                 "options": {}
             },
-            "id": "28ddb8e9-76ca-438b-a9e1-54ad59240965",
+            "id": "ee628f4b-5699-498e-aafa-c6e1e24c4c6e",
             "name": "Loop Over Chunks",
             "type": "n8n-nodes-base.splitInBatches",
             "typeVersion": 3,
             "position": [
-                48016,
-                16096
+                1328,
+                480
             ]
         },
         {
             "parameters": {
                 "amount": 10
             },
-            "id": "e79d04bb-8ddb-44fc-8383-603d378d90a8",
+            "id": "cc228dfb-8e75-4cb2-a0dd-48a404209623",
             "name": "API Rate Limit",
             "type": "n8n-nodes-base.wait",
             "typeVersion": 1.1,
             "position": [
-                48240,
-                16208
+                1552,
+                592
             ],
             "webhookId": "63e60c48-5879-4da9-a540-3b6c7c7352ae"
         },
@@ -552,15 +492,174 @@
             "parameters": {
                 "amount": 10
             },
-            "id": "6aca7250-3757-489c-baf7-ffcb105fa2a3",
+            "id": "f45b5e1d-a7ff-49d8-9b79-ba6b6946b660",
             "name": "API Rate Limit 2",
             "type": "n8n-nodes-base.wait",
             "typeVersion": 1.1,
             "position": [
-                47104,
-                16656
+                416,
+                1040
             ],
             "webhookId": "12b1d62f-f507-4b0a-8d0e-843eb76bf1d8"
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "id": "ee25655d-c502-49d2-8b0c-0179c9936c31",
+            "name": "Loop Over Items2",
+            "type": "n8n-nodes-base.splitInBatches",
+            "position": [
+                496,
+                1504
+            ],
+            "typeVersion": 3
+        },
+        {
+            "parameters": {
+                "fieldToSplitOut": "data",
+                "options": {}
+            },
+            "id": "fc447050-4cb0-47cd-a079-581fb0afee8b",
+            "name": "Split Out",
+            "type": "n8n-nodes-base.splitOut",
+            "position": [
+                2000,
+                1024
+            ],
+            "typeVersion": 1
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "version": 2,
+                        "leftValue": "",
+                        "caseSensitive": true,
+                        "typeValidation": "strict"
+                    },
+                    "combinator": "and",
+                    "conditions": [
+                        {
+                            "id": "6651a68e-b616-4a24-b847-bc8f14bf915c",
+                            "operator": {
+                                "name": "filter.operator.equals",
+                                "type": "string",
+                                "operation": "equals"
+                            },
+                            "leftValue": "={{ $json.step }}",
+                            "rightValue": "subtitles"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "b5668f46-e6e3-44eb-95de-2f63601689c8",
+            "name": "if operation is subtitles",
+            "type": "n8n-nodes-base.if",
+            "position": [
+                736,
+                1504
+            ],
+            "typeVersion": 2.2
+        },
+        {
+            "parameters": {
+                "executeOnce": false,
+                "command": "={{ $json.command }}"
+            },
+            "id": "5d8aab66-dc82-4715-8967-257d4f2ca058",
+            "name": "Execute operation on the clip",
+            "type": "n8n-nodes-base.executeCommand",
+            "position": [
+                1008,
+                1632
+            ],
+            "typeVersion": 1
+        },
+        {
+            "parameters": {
+                "amount": 60
+            },
+            "id": "8b0a790c-1e8c-4afa-8d86-54051fbeae54",
+            "name": "Wait (according to how powerful your system is and how much ram you have)",
+            "type": "n8n-nodes-base.wait",
+            "position": [
+                1216,
+                1632
+            ],
+            "webhookId": "028d083c-7e5a-48ec-ba53-80622cc221b9",
+            "typeVersion": 1.1
+        },
+        {
+            "parameters": {
+                "executeOnce": false,
+                "command": "=ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of json \"{{$json[\"inputFile\"]}}\"\n"
+            },
+            "id": "a71fbc3c-8889-48cd-96c9-0c3ef2d8a751",
+            "name": "find height & width",
+            "type": "n8n-nodes-base.executeCommand",
+            "position": [
+                1008,
+                1376
+            ],
+            "typeVersion": 1
+        },
+        {
+            "parameters": {
+                "jsCode": "return items.map((item, index) => {\n  \n  // 1) Get ffprobe output\n  const ffprobe = JSON.parse(item.json.stdout);\n  const stream = ffprobe.streams[0];\n\n  const videoWidth = stream.width;\n  const videoHeight = stream.height;\n\n  // 2) Get original task data from before ffprobe\n  const original = $item(index).$node[\"if operation is subtitles\"].json;\n\n  const inputFile  = original.inputFile;\n  const outputFile = original.outputFile;\n  const srtFile    = original.srtFile;\n\n  if (!inputFile || !outputFile || !srtFile) {\n      throw new Error(\"Missing inputFile/outputFile/srtFile from If node.\");\n  }\n\n// Math.round(videoWidth * 0.085);\n// Math.round(videoHeight * 0.12);\n//   // 3) Dynamic scaling\n  const fontSize = 12;\n  const marginV  = 50;\n\n  // 4) Subtitle styling\n  const fontName = 'Arial';\n  const primaryColor = '&H00FFFF&';\n  const borderColor  = '&H000000&';\n  const outlineWidth = 1;\n  const alignment    = 2;\n\n  const subtitlesFilter =\n    `subtitles=${srtFile}:force_style=` +\n    `'FontName=${fontName},FontSize=${fontSize},PrimaryColour=${primaryColor},` +\n    `OutlineColour=${borderColor},Outline=${outlineWidth},Bold=1,Alignment=${alignment},MarginV=${marginV},WrapStyle=2'`;\n\n  // 5) Final ffmpeg command\n  const command =\n    `ffmpeg -i \"${inputFile}\" -vf \"${subtitlesFilter}\" ` +\n    `-c:v libx264 -preset fast -crf 23 -c:a copy \"${outputFile}\"`;\n\n  // 6) Output back\n  item.json.videoWidth  = videoWidth;\n  item.json.videoHeight = videoHeight;\n  item.json.fontSize    = fontSize;\n  item.json.marginV     = marginV;\n  item.json.command     = command;\n\n  return item;\n});\n"
+            },
+            "id": "693f3f2c-129f-4a64-b311-5b82211643d1",
+            "name": "calculate relative subtitle size",
+            "type": "n8n-nodes-base.code",
+            "position": [
+                1216,
+                1376
+            ],
+            "typeVersion": 2
+        },
+        {
+            "parameters": {
+                "command": "={{$json[\"command\"]}}\n"
+            },
+            "id": "75642da8-0163-44c6-b90a-60d0b3912fa8",
+            "name": "burn subtitles",
+            "type": "n8n-nodes-base.executeCommand",
+            "position": [
+                1408,
+                1376
+            ],
+            "typeVersion": 1
+        },
+        {
+            "parameters": {
+                "amount": 60
+            },
+            "id": "5bf0f5cc-7800-416d-8e85-1a7c12fd2ba1",
+            "name": "Wait",
+            "type": "n8n-nodes-base.wait",
+            "position": [
+                1600,
+                1376
+            ],
+            "webhookId": "3bc52ce2-6479-4861-9b04-12d6ea198320",
+            "typeVersion": 1.1
+        },
+        {
+            "parameters": {
+                "content": "## executing editing commands on the clips\nTake this into a seperate workflow, and configure the call sub-workflow node",
+                "height": 512,
+                "width": 1728,
+                "color": 3
+            },
+            "id": "51079ff4-5752-4203-afa2-31ebd4275488",
+            "name": "Sticky Note4",
+            "type": "n8n-nodes-base.stickyNote",
+            "position": [
+                464,
+                1280
+            ],
+            "typeVersion": 1
         }
     ],
     "connections": {
@@ -658,7 +757,7 @@
             "main": [
                 [
                     {
-                        "node": "Call subworkflow",
+                        "node": "Split Out",
                         "type": "main",
                         "index": 0
                     }
@@ -863,17 +962,6 @@
                 ]
             ]
         },
-        "Call subworkflow": {
-            "main": [
-                [
-                    {
-                        "node": "Loop Over Items1",
-                        "type": "main",
-                        "index": 0
-                    }
-                ]
-            ]
-        },
         "Loop Over Chunks": {
             "main": [
                 [
@@ -913,6 +1001,113 @@
                     }
                 ]
             ]
+        },
+        "Loop Over Items2": {
+            "main": [
+                [],
+                [
+                    {
+                        "node": "if operation is subtitles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split Out": {
+            "main": [
+                [
+                    {
+                        "node": "Loop Over Items2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "if operation is subtitles": {
+            "main": [
+                [
+                    {
+                        "node": "find height & width",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Execute operation on the clip",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Execute operation on the clip": {
+            "main": [
+                [
+                    {
+                        "node": "Wait (according to how powerful your system is and how much ram you have)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait (according to how powerful your system is and how much ram you have)": {
+            "main": [
+                [
+                    {
+                        "node": "Loop Over Items2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "find height & width": {
+            "main": [
+                [
+                    {
+                        "node": "calculate relative subtitle size",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "calculate relative subtitle size": {
+            "main": [
+                [
+                    {
+                        "node": "burn subtitles",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "burn subtitles": {
+            "main": [
+                [
+                    {
+                        "node": "Wait",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait": {
+            "main": [
+                [
+                    {
+                        "node": "Loop Over Items2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
         }
     },
     "pinData": {
@@ -926,8 +1121,7 @@
         ]
     },
     "meta": {
-        "templateId": "11584",
         "templateCredsSetupCompleted": true,
-        "instanceId": "746feac036c80de4b5bb0986819db21ff87e7eb0c20c1720685b64034c87f152"
+        "instanceId": "bf54e9075fb530ae768a31ec6ca9566a65cd8ff07fe5e5da90d1c06429be31a5"
     }
 }
